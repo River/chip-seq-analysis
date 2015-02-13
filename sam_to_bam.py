@@ -79,7 +79,7 @@ for i in range(len(fastq_files)):
 
 # depth of coverage
 for i in range(len(fastq_files)):
-	commands += "java -Xmx2g -jar " + gatkpath + " -R "+ gatkgenome + " -T DepthOfCoverage -o " + prefix + prettynames[i] + "_DoC.sgr -I " + prefix + prettynames[i] + ".bam --omitIntervalStatistics --omitLocusTable\n"
+	commands += "java -Xmx2g -jar " + gatkpath + " -R "+ gatkgenome + " -T DepthOfCoverage -o " + prefix + prettynames[i] + "_DoC.sgr -I " + prefix + prettynames[i] + "_ordered.bam --omitIntervalStatistics --omitLocusTable\n"
 
 print commands
 
