@@ -1,3 +1,20 @@
+# fjoin_rjmerge.py
+# ================
+# takes fjoin output and chains together features that overlap; outputs the total feature length added together
+# along with the names of the features that are chained together
+
+# 2015.02.20 River Jiang
+
+# NOTE:
+# make sure the COL_* constants reflect which columns the chr, start, stop, and names for each paired feature
+# can be found in the input data
+
+# fjoin outputs data sorted only by feature_start, and not by the chromosome
+# make sure to sort data first by chromosome, and then by feature_start before feeding to this script
+# because this makes the assumption that feature chains are adjacent in the input data
+# 	e.g.
+# 	cat fjoin_condition.xls | sort -k2,2 -k3,3n > fjoin_condition_sorted.xls
+
 import sys
 import os
 
