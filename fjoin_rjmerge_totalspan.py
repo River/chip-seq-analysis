@@ -1,3 +1,8 @@
+####
+# outputs the total width of each chain, including the length of any gaps (instead of skipping the gaps)
+####
+
+
 # fjoin_rjmerge.py
 # ================
 # takes fjoin output and chains together features that overlap; outputs the total feature length added together
@@ -68,19 +73,18 @@ def make_summary(unique_sets):
 	for chain in unique_sets:
 		sorted_chain = [ sorted(chain[0], key=lambda x: x[1]), sorted(chain[1], key=lambda x: x[1]) ]
 
-		xsize = 0
 		xnames = []
 		for x in sorted_chain[0]:
-			xsize += (int(x[2]) - int(x[1]))
-			xnames.append(x[3] + "(" + x[1] + "," + x[2] + ")")
+			xnames.append(x[3])
 
-		ysize = 0
 		ynames = []
 		for y in sorted_chain[1]:
-			ysize += (int(y[2]) - int(y[1]))
-			ynames.append(y[3] + "(" + y[1] + "," + y[2] + ")")
+			ynames.append(y[3])
+
+		xsize = int(sorted_chain[0][-1][2]) - int(sorted_chain[0][0][1])
+		ysize = int(sorted_chain[1][-1][2]) - int(sorted_chain[1][0][1])
 		
-		summary += chain[0][0][0] + "\t" + str(xsize) + "\t" + str(ysize) + "\t" + ", ".join(xnames) + "\t" + ", ".join(ynames) + "\n"
+		summary += chain[0][0][0] + "\t" + str(xsize) + "\t" + str(ysize) + "\t" + "\t".join(xnames) + "\t" + "\t".join(ynames) + "\n"
 	return summary
 
 if __name__ == "__main__":
