@@ -88,11 +88,12 @@ if __name__ == "__main__":
 		else:
 			FEATURES = open_and_parse_gff(features_gff_file)
 
+			summary = "chr\tpeaksA\tpeaksB\twindow_size\tfeatures\n"
 			pairs = open_and_parse_pairs(paired_peaks_file)
 			for pair in pairs:
 				chrom = pair[0]
 				window = get_min_max_window(pair)
 				features = get_features_in_window(chrom, window)
-				print(pair)
-				print(window)
-				print(features)
+				summary += chrom + "\t" + ", ".join(pair[1]) + "\t" + ", ".join(pair[2]) + "\t" + "\t" + str(WINDOW) + "\t" + ", ".join(features) + "\n"
+
+			print(summary)
