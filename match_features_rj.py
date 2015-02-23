@@ -72,7 +72,7 @@ def get_features_in_window(chrom, window):
 			if (min(window[1], f[2]) - max(window[0], f[1])) > 0:
 				features.append(f[3])
 			# if we have gone past the window, stop looking
-			if f[1] >= window[1]:
+			else if f[1] >= window[1]:
 				break
 	return features
 
@@ -90,12 +90,14 @@ if __name__ == "__main__":
 		else:
 			FEATURES = open_and_parse_gff(features_gff_file)
 
-			summary = "chr\tpeaksA\tpeaksB\twindow_size\tfeatures\n"
+			# OUTPUT
+			# chr\tpeaksA\tpeaksB\twindow_size\tfeatures\n
+			summary = ""
 			pairs = open_and_parse_pairs(paired_peaks_file)
 			for pair in pairs:
 				chrom = pair[0]
 				window = get_min_max_window(pair)
 				features = get_features_in_window(chrom, window)
-				summary += chrom + "\t" + ", ".join(pair[1]) + "\t" + ", ".join(pair[2]) + "\t" + "\t" + str(WINDOW) + "\t" + ", ".join(features) + "\n"
+				summary += chrom + "\t" + ", ".join(pair[1]) + "\t" + ", ".join(pair[2]) + "\t" + str(WINDOW) + "\t" + ", ".join(features) + "\n"
 
 			print(summary)
