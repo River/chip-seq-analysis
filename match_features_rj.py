@@ -32,10 +32,12 @@ def open_and_parse_pairs(fp):
 	pairs = []
 	with open(fp) as f:
 		for l in f: 
-			# last two columns contains names of the peaks
-			chrom = l.split('\t')[0]
-			last_cols = l.strip().split('\t')[-2:]
-			pairs.append(tuple([chrom, tuple(last_cols[0].split(', ')), tuple(last_cols[1].split(', '))]))
+			# ignore empty lines
+			if len(l) > 1:
+				# last two columns contains names of the peaks
+				chrom = l.split('\t')[0]
+				last_cols = l.strip().split('\t')[-2:]
+				pairs.append(tuple([chrom, tuple(last_cols[0].split(', ')), tuple(last_cols[1].split(', '))]))
 	# [ ( 'chr1', ('peak_a1(1,2)', 'peak_a2(2,3)'), ('peak_b1(1,2)', 'peak_b2(2,3)') ), ( ... ), ... ]
 	return pairs
 
