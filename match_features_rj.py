@@ -77,7 +77,7 @@ def get_features_in_window(chrom, window):
 if __name__ == "__main__":
 	del sys.argv[0]
 	if not len(sys.argv) == 2:
-		sys.stderr.write("Usage: [paired peaks tsv file] [features gff file]\n")
+		sys.stderr.write("Usage: [paired peaks tsv file from fjoin_rjmerge.py] [features gff file]\n")
 		sys.exit(1)
 	else:
 		paired_peaks_file = sys.argv[0]
