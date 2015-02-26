@@ -1,10 +1,18 @@
+# match_features_rj.py
+# ====================
+# takes peak pairs output from fjoin_rjmerge.py as well as annotated features
+# gff file, and outputs all features that are within +/- WINDOW size of the
+# leftmost and rightmost edges of the broadest peak of each pair
+# 
+# can manually combine output with the paired peaks in a big excel spreadsheet
+# for GO enrichment analysis, etc.
 
 import sys
 import os
 import re
 
 # how many bp upstream and downstream to look for features
-WINDOW = 500
+WINDOW = 300
 
 # don't edit below!
 chr_conversion = {

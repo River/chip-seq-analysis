@@ -1,6 +1,20 @@
+# fastq_to_bam.py
+# =============
+# 
+# Runs Mengshu's ChIP-seq pipeline. Feed me path to folder containing all the .fastq.gz
+# files, and this script will output the bash commands for:
+#   1. bowtie2 mapping
+#   2. Picard tools (sam to bam, add/replace read groups, build bam index)
+#   3. GATK toolkit for depth of coverage analysis
+# Running these commands will output bam files into the current directory.
+# 
+# IMPORTANT: before running this script, make sure that the config vars are properly set.
+
 import sys
 import os
 import re
+
+# CONFIG: check these before running!
 
 fastq_regex = r'Meneghini_[0-9+]_(.+)_([ATGC]{6})_L001_R1_001.fastq.gz'
 
@@ -12,6 +26,8 @@ picardtoolspath = "../picard-tools-1.119/"
 gatkpath = "../GenomeAnalysisTK.jar"
 gatkgenome = "../sacCer3/genome.fa"
 
+# DO NOT EDIT BELOW
+
 # check needed files are present
 for f in [os.path.dirname(bowtie2indexpath), picardtoolspath, gatkpath, gatkgenome]:
 	if not os.path.exists(f):
@@ -19,9 +35,9 @@ for f in [os.path.dirname(bowtie2indexpath), picardtoolspath, gatkpath, gatkgeno
 		exit(1)
 
 if len(sys.argv) < 2:
-	print("""Usage: sam_to_bam.py [folder] -p [prefix]
+	print("""Usage: fastq_to_bam.py [folder] -p [prefix]
 
-Runs MX sam to bam pipeline. Feed me path to folder containing fastq.gz files, and
+Runs MX's fastq to bam pipeline. Feed me path to folder containing fastq.gz files, and
 I will output bam files into the current directory.""")
 	exit(1)
 
