@@ -117,7 +117,7 @@ if __name__ == "__main__":
 	else:
 		WINDOW = int(sys.argv[0])
 		del sys.argv[0]
-		print("Looking for features +/- " + WINDOW + " of peaks")
+		sys.stderr.write("Looking for features +/- " + str(WINDOW) + " of peaks\n")
 
 		overlap_mode = int(sys.argv[0])
 		del sys.argv[0]
@@ -128,7 +128,7 @@ if __name__ == "__main__":
 			foo = "TTS"
 		elif overlap_mode == 2:
 			foo = "TSS or TTS"
-		print("Looking for overlap of the " + foo)
+		sys.stderr.write("Looking for overlap of the " + foo + "\n")
 
 		paired_peaks_file = sys.argv[0]
 		features_gff_file = sys.argv[1]
@@ -145,7 +145,7 @@ if __name__ == "__main__":
 			for pair in pairs:
 				chrom = pair[0]
 				window = get_min_max_window(pair)
-				features = get_features_in_window(chrom, window)
+				features = get_features_in_window(chrom, window, overlap_mode)
 				for f in features:
 					summary += chrom + "\t" + str(WINDOW) + "\t" + pair[3] + "\t" + pair[4] + "\t" + ", ".join(pair[1]) + "\t" + ", ".join(pair[2]) + "\t" + f + "\n"
 
