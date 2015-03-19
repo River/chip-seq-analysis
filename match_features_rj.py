@@ -90,12 +90,12 @@ def get_features_in_window(chrom, window, overlap_mode):
 		if f[0] == chrom:
 			# window overlaps TSS
 			if overlap_mode == 0:
-				if (f[1] <= window[0]) and (f[1] >= window[1]):
+				if (f[1] >= window[0]) and (f[1] <= window[1]):
 					features.append(f[3])
 
 			# window overlaps TTS
 			elif overlap_mode == 1:
-				if (f[2] <= window[0]) and (f[2] >= window[1]):
+				if (f[2] >= window[0]) and (f[2] <= window[1]):
 					features.append(f[3])
 			
 			# window overlaps both TSS and TTS
