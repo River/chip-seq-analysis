@@ -111,10 +111,15 @@ def get_features_in_window(chrom, window, overlap_mode):
 
 if __name__ == "__main__":
 	del sys.argv[0]
-	if not len(sys.argv) == 4:
-		sys.stderr.write("Usage: [overlap_window] [overlap_mode] [paired peaks tsv file from fjoin_rjmerge.py] [features gff file]\n")
+	if not (len(sys.argv) == 4 or len(sys.argv) == 5):
+		sys.stderr.write("Usage: [--unique] [overlap_window] [overlap_mode] [paired peaks tsv file from fjoin_rjmerge.py] [features gff file]\n")
 		sys.exit(1)
 	else:
+		find_unique = False
+		if sys.argv[0] == "--unique":
+			find_unique = True
+			del sys.argv[0]
+
 		WINDOW = int(sys.argv[0])
 		del sys.argv[0]
 		sys.stderr.write("Looking for features +/- " + str(WINDOW) + " of peaks\n")
@@ -146,6 +151,9 @@ if __name__ == "__main__":
 				chrom = pair[0]
 				window = get_min_max_window(pair)
 				features = get_features_in_window(chrom, window, overlap_mode)
+				if find_unique:
+					if len(features) > 1:
+						continue
 				for f in features:
 					summary += chrom + "\t" + str(WINDOW) + "\t" + pair[3] + "\t" + pair[4] + "\t" + ", ".join(pair[1]) + "\t" + ", ".join(pair[2]) + "\t" + f + "\n"
 
